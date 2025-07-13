@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Ludo, No Ads!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Particle Effects Container -->
+    <div id="particles-container" class="particles-container"></div>
+    
+    <!-- Main Menu Screen -->
+    <div id="main-menu" class="screen active">
+        <div class="animated-background"></div>
+        <div class="container">
+            <div class="menu-content">
+                <h1 class="game-title">
+                    <span class="title-icon">🎲</span>
+                    Welcome to Ludo, No Ads!
+                    <span class="title-sparkle">✨</span>
+                </h1>
+                
+                <div class="welcome-section glass-card">
+                    <p class="welcome-text">
+                        Gather your family for a fun-filled Ludo game!
+                    </p>
+                </div>
+
+                <div class="menu-form glass-card">
+                    <div class="form-group">
+                        <label class="form-label" for="player-name">
+                            <span class="label-icon">👤</span>
+                            Your Name
+                        </label>
+                        <input type="text" id="player-name" class="form-control family-input" placeholder="Enter your name" maxlength="20">
+                    </div>
+                    <div class="menu-buttons">
+                        <button id="create-room-btn" class="btn btn--primary btn--full-width family-btn">
+                            <span class="btn-icon">🏠</span>
+                            Create Room
+                        </button>
+                        <div class="join-room-section">
+                            <input type="text" id="room-code-input" class="form-control family-input" placeholder="Enter room code" maxlength="4">
+                            <button id="join-room-btn" class="btn btn--secondary btn--full-width family-btn">
+                                <span class="btn-icon">🚪</span>
+                                Join Room
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="instructions-section glass-card">
+                    <h2 class="instructions-heading">
+                        <span class="instructions-icon">📋</span>
+                        How to Use?
+                    </h2>
+                    <div class="instructions-steps">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>One family member creates a room</h3>
+                                <p>Gets unique 4-character code</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Share the room code with other family members</h3>
+                                <p>Tell everyone the room code to join</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Family members join using the code</h3>
+                                <p>Enter the code and click "Join Room"</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h3>Wait for everyone (supports 2-6 family members)</h3>
+                                <p>See who's connected in the room lobby</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h3>Start playing traditional Ludo together</h3>
+                                <p>Host clicks "Start Game" and enjoy!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Room Lobby Screen -->
+    <div id="room-setup" class="screen">
+        <div class="animated-background"></div>
+        <div class="container">
+            <div class="room-content">
+                <div class="room-header">
+                    <h2 class="section-title">
+                        <span class="title-icon">🏠</span>
+                        Room Lobby
+                    </h2>
+                    <div class="room-code-display glass-card">
+                        <span class="room-code-label">Room Code:</span>
+                        <span id="room-code-display" class="room-code animated-code">----</span>
+                        <button id="share-code-btn" class="btn btn--sm btn--outline family-btn">
+                            <span class="btn-icon">📤</span>
+                            Share
+                        </button>
+                    </div>
+                </div>
+
+                <div class="room-settings glass-card">
+                    <div class="setting-group">
+                        <label class="form-label">
+                            <span class="label-icon">👥</span>
+                            Number of Family Members
+                        </label>
+                        <select id="player-count-select" class="form-control family-select">
+                            <option value="2">2 Family Members</option>
+                            <option value="3">3 Family Members</option>
+                            <option value="4" selected>4 Family Members</option>
+                            <option value="5">5 Family Members</option>
+                            <option value="6">6 Family Members</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="members-section glass-card">
+                    <h3 class="section-subtitle">
+                        <span class="title-icon">👨‍👩‍👧‍👦</span>
+                        Connected Family Members:
+                    </h3>
+                    <div id="members-list" class="members-list"></div>
+                    <div class="member-count">
+                        <span id="member-count-text" class="member-count-text">0/6 family members connected</span>
+                    </div>
+                </div>
+
+                <div class="room-actions">
+                    <button id="start-game-btn" class="btn btn--primary btn--full-width family-btn glow-btn" disabled>
+                        <span class="btn-icon">🚀</span>
+                        Start Game
+                    </button>
+                    <div id="waiting-message" class="waiting-message hidden">
+                        <span class="waiting-icon">⏳</span>
+                        Waiting for host to start game...
+                    </div>
+                    <button id="leave-room-btn" class="btn btn--outline family-btn">
+                        <span class="btn-icon">🚪</span>
+                        Leave Room
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <div class="game-background"></div>
+        <div class="game-container">
+            <div class="game-header glass-card">
+                <div class="current-player-info">
+                    <div class="player-avatar">
+                        <div id="player-color-indicator" class="player-color-indicator animated-indicator"></div>
+                    </div>
+                    <div class="player-details">
+                        <span id="current-player-name" class="player-name">Family Member</span>
+                        <span class="turn-indicator">Your Turn</span>
+                    </div>
+                </div>
+                <div class="game-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Round</span>
+                        <span id="round-counter" class="stat-value">1</span>
+                    </div>
+                </div>
+                <div class="game-actions">
+                    <button id="leave-game-btn" class="btn btn--sm btn--outline family-btn">
+                        <span class="btn-icon">🚪</span>
+                        Leave Game
+                    </button>
+                </div>
+            </div>
+            
+            <div class="game-content">
+                <div class="game-board-container glass-card">
+                    <div class="board-glow"></div>
+                    <canvas id="game-board" width="600" height="600"></canvas>
+                    <div class="safe-zone-legend">
+                        <div class="legend-item">
+                            <span class="legend-icon">🛡️</span>
+                            <span class="legend-text">Safe Zones</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-icon">⭐</span>
+                            <span class="legend-text">Star Zones</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-sidebar">
+                    <div class="dice-section glass-card">
+                        <h4 class="section-subtitle">Roll the Dice</h4>
+                        <div class="dice-container">
+                            <div id="dice-display" class="dice family-dice">
+                                <div class="dice-face">1</div>
+                                <div class="dice-shadow"></div>
+                            </div>
+                            <div class="dice-glow"></div>
+                        </div>
+                        <button id="roll-dice-btn" class="btn btn--primary family-btn pulse-btn">
+                            <span class="btn-icon">🎲</span>
+                            Roll Dice
+                        </button>
+                    </div>
+                    
+                    <div class="game-status glass-card">
+                        <h4 class="section-subtitle">
+                            <span class="title-icon">💬</span>
+                            Game Status
+                        </h4>
+                        <div id="game-messages" class="game-messages family-messages">
+                            Welcome to family Ludo! Roll the dice to start.
+                        </div>
+                    </div>
+                    
+                    <div class="players-status glass-card">
+                        <h4 class="section-subtitle">
+                            <span class="title-icon">👨‍👩‍👧‍👦</span>
+                            Family Members
+                        </h4>
+                        <div id="game-players-list" class="game-players-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Winner Modal -->
+    <div id="winner-modal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content celebration-modal glass-card">
+            <div class="celebration-icon">🎉</div>
+            <h2 class="celebration-title">Game Complete!</h2>
+            <div id="rankings-display" class="rankings-display"></div>
+            <div class="congratulations-message">Great game, everyone!</div>
+            <div class="celebration-effects">
+                <div class="confetti"></div>
+                <div class="sparkles"></div>
+            </div>
+            <div class="modal-actions">
+                <button id="new-game-btn" class="btn btn--primary family-btn">
+                    <span class="btn-icon">🔄</span>
+                    New Game
+                </button>
+                <button id="back-to-menu-btn" class="btn btn--secondary family-btn">
+                    <span class="btn-icon">🏠</span>
+                    Back to Menu
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner">
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+        </div>
+        <div class="loading-text">Starting game...</div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
